@@ -6,7 +6,7 @@ export const getVisiblePeople = (
 ) => {
   const query = filters.get('query') || '';
   const sex = filters.get('sex') || '';
-  const centuries = filters.getAll('centuries').map(Number) || [];
+  const centuries = filters.getAll('centuries').map(Number).filter(Boolean);
   const sort = filters.get('sort') || null;
   const order = filters.get('order') || '';
   let filteredPeople = [...people];
@@ -25,7 +25,7 @@ export const getVisiblePeople = (
     filteredPeople = filteredPeople.filter(person => {
       const century = Math.ceil(person.born / 100);
 
-      return centuries.includes(century.toString());
+      return centuries.includes(century);
     });
   }
 
